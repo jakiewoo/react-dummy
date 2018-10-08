@@ -1,15 +1,16 @@
 import React, {Component} from "react";
-import ReactDOM from "react-dom";
 import Input from "../presentational/Input";
+import {connect} from "react-redux";
+import {incrementCount} from "../../actions/counterAction";
 
 class FormContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       seo_title: ""
     };
-  }
+  };
 
   render() {
     const {seo_title} = this.state;
@@ -25,10 +26,16 @@ class FormContainer extends Component {
         />
       </form>
     )
-  }
+  };
+
+  handleChange = () => {
+    this.props.incrementCount();
+    this.setState({seo_title: "Incremented"});
+  };
 }
 
-const wrapper = document.getElementById("create-article-form");
-wrapper ? ReactDOM.render(<FormContainer/>, wrapper) : false;
-
-export default FormContainer;
+export default connect(
+  null,
+  {incrementCount}
+)(FormContainer);
+;
