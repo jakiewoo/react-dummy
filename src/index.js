@@ -1,13 +1,27 @@
-import FormContainer from "./js/components/container/FormContainer";
+import MainContainer from "./js/components/container/MainContainer";
 import ReactDOM from "react-dom";
 import React from "react";
-import store from "./js/store/"
+import reducers from "./js/reducers/"
+import saga from "./js/reducers/saga"
 
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
+import {applyMiddleware, createStore, compose} from 'redux'
+import createSagaMiddleware from 'redux-saga'
 
+const sagaMiddleware = createSagaMiddleware()
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const enhancer = composeEnhancers(
+  applyMiddleware(sagaMiddleware)
+  // other store enhancers if any
+);
+
+const store = createStore(reducers, enhancer);
+
+sagaMiddleware.run(saga)
 
 const wrapper = document.getElementById("create-article-form");
 wrapper ? ReactDOM.render(
   <Provider store={store}>
-    <FormContainer/>
+    <MainContainer/>
   </Provider>, wrapper) : false;

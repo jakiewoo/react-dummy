@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 const Input = ({label, text, type, id, value, handleChange}) => (
