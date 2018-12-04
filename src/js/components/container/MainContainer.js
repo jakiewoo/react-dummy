@@ -4,6 +4,10 @@ import {Component} from "react";
 import React from "react";
 
 class MainContainer extends Component {
+  componentDidMount() {
+    console.log(process.env.API_URL);
+    console.log('lala');
+  }
   render() {
     return (
       <div id="main">
